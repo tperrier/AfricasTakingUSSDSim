@@ -33,6 +33,9 @@ class IndexView(View):
 # Utility Functions
 ########################################
 
+
+
+
 def post_at_ussd(url,payload):
     ''' Use requests library to make a post request to an Africa's Talking USSD Gateway
         - return: action (con , end) , text
