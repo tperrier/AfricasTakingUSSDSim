@@ -4,13 +4,18 @@
 
 angular.module('ussdClient',[]).controller('MainController',['$scope','$http', function($scope,$http) {
 
+  var initial_url_lookup = {
+    'localhost': window.location.origin + '/ussd/',
+    'homes.cs.washington.edu': window.location.href.slice(0,-10) + 'ussd.php',
+  }
+
   angular.extend($scope,{
     session:"start",
     input:"",
     response:"",
     input_history:[],
     data:{
-      url:window.location.origin+'/ussd/',
+      url:initial_url_lookup[window.location.hostname],
       serviceCode:"*384*1234",
       phoneNumber:"+27470000000",
       sessionId:"AT_" + Math.floor(Math.random()*9999),
@@ -68,7 +73,7 @@ angular.module('ussdClient',[]).controller('MainController',['$scope','$http', f
   });
 
   var pathList = window.location.pathname.split('/');
-  if (pathList.slice(-2)[0] != 'static') {
+  if (pathList[1] != 'static') {
     $scope.submitURL += pathList.slice(0,-1).join('/') + 'post.php';
   }
 

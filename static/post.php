@@ -8,11 +8,9 @@ $payload = http_build_query([
   'sessionId' => $data['sessionId'],
   'serviceCode' => $data['serviceCode'],
   'phoneNumber' => $data['phoneNumber'],
-  'text' => $data['text'] 
+  'text' => $data['text']
 ]);
 
-// echo var_dump($data);
-// echo $payload;
 
 $ch = curl_init($url);
 curl_setopt($ch, CURLOPT_POST, TRUE);
