@@ -62,7 +62,7 @@ angular.module('ussdClient',[]).controller('MainController',['$scope','$http', f
       });
     },
 
-    submitURL:window.location.origin + '/',
+    submitURL:window.location.origin,
 
     keypress:function(evt) {
       if (evt.key == 'Enter') {
@@ -74,7 +74,9 @@ angular.module('ussdClient',[]).controller('MainController',['$scope','$http', f
 
   var pathList = window.location.pathname.split('/');
   if (pathList[1] != 'static') {
-    $scope.submitURL += pathList.slice(0,-1).join('/') + 'post.php';
+    $scope.submitURL += pathList.slice(0,-1).join('/') + '/post.php';
+  } else {
+    $scope.submitURL += '/';
   }
 
 }]);
