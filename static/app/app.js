@@ -5,7 +5,7 @@
 angular.module('ussdClient',[]).controller('MainController',['$scope','$http', function($scope,$http) {
 
   var initial_url_lookup = {
-    'localhost': window.location.origin + '/ussd/',
+    // 'localhost': window.location.origin + '/ussd_app/',
     'homes.cs.washington.edu': window.location.href.slice(0,-10) + 'ussd.php',
   }
 
@@ -15,16 +15,16 @@ angular.module('ussdClient',[]).controller('MainController',['$scope','$http', f
     response:"",
     input_history:[],
     data:{
-      url:initial_url_lookup[window.location.hostname],
+      url:initial_url_lookup[window.location.hostname] || window.location.origin + '/ussd_app/',
       serviceCode:"*384*1234",
       phoneNumber:"+27470000000",
-      sessionId:"AT_" + Math.floor(Math.random()*9999),
+      sessionId:"AT_____" + Math.floor(Math.random()*999999),
       text:""
     },
 
     send:function($event){
       console.log('Send',$scope.input_history);
-      $scope.input_history.push($scope.input)
+      Array.prototype.push.apply($scope.input_history,$scope.input.split("*"));
       $scope.data.text = $scope.input_history.join('*');
       $scope.input = '';
       $scope.post();
@@ -43,7 +43,7 @@ angular.module('ussdClient',[]).controller('MainController',['$scope','$http', f
     end:function(){
       $scope.session = 'start';
       // Reset all variables
-      $scope.data.sessionId = "AT_" + Math.floor(Math.random()*9999);
+      $scope.data.sessionId = "AT_____" + Math.floor(Math.random()*999999);
       $scope.data.text = ""
       $scope.response = "";
       $scope.input_history = [];
@@ -62,7 +62,7 @@ angular.module('ussdClient',[]).controller('MainController',['$scope','$http', f
       });
     },
 
-    submitURL:window.location.origin,
+    submitURL:window.location.origin + '/ussd/',
 
     keypress:function(evt) {
       if (evt.key == 'Enter') {
@@ -71,13 +71,6 @@ angular.module('ussdClient',[]).controller('MainController',['$scope','$http', f
     },
 
   });
-
-  var pathList = window.location.pathname.split('/');
-  if (pathList[1] != 'static') {
-    $scope.submitURL += pathList.slice(0,-1).join('/') + '/post.php';
-  } else {
-    $scope.submitURL += '/';
-  }
 
 }]);
 

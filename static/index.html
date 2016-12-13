@@ -3,10 +3,10 @@
   <head>
     <meta charset="utf-8">
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
-    <script src="app/app.js"></script>
+    <script src="../static/app/app.js"></script>
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
-    <link rel="stylesheet" href="app/style.css"/>
+    <link rel="stylesheet" href="../static/app/style.css"/>
 
     <title>Africa's Talking Test Client</title>
   </head>
@@ -54,7 +54,7 @@
                 <div id="mockDisplay" class="col-sm-6 col-sm-offset-2" ng-bind="response"> </div>
                 <div id="historyDisplay" class="col-sm-4">
                   <ul>
-                    <li ng-repeat="command in input_history track by $index">{{command}}</li>
+                    {% verbatim %}<li ng-repeat="command in input_history track by $index">{{command}}</li>{% endverbatim %}
                   </ul>
                 </div>
               </div>
